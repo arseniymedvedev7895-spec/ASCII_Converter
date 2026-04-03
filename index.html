@@ -30,7 +30,6 @@
     overflow-x: hidden;
   }
 
-  /* Grid background */
   body::before {
     content: '';
     position: fixed;
@@ -48,51 +47,47 @@
     z-index: 1;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 24px;
+    padding: 16px;
   }
 
-  /* Header */
   header {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 32px;
-    padding-bottom: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
   }
 
   .logo {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 28px;
+    font-size: 24px;
     color: var(--accent);
     text-shadow: 0 0 20px rgba(0,255,157,0.5);
-    letter-spacing: -1px;
   }
-
   .logo span { color: var(--accent2); }
 
   .tagline {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--muted);
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-left: auto;
   }
 
-  /* Main layout */
   .layout {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 20px;
+    grid-template-columns: 280px 1fr;
+    gap: 16px;
     align-items: start;
   }
 
-  /* Sidebar */
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  @media (max-width: 800px) {
+    .layout { grid-template-columns: 1fr; }
   }
+
+  .sidebar { display: flex; flex-direction: column; gap: 12px; }
 
   .panel {
     background: var(--panel);
@@ -102,7 +97,7 @@
   }
 
   .panel-header {
-    padding: 10px 16px;
+    padding: 8px 14px;
     background: var(--surface2);
     font-size: 11px;
     letter-spacing: 2px;
@@ -120,52 +115,45 @@
     border-radius: 50%;
     background: var(--accent);
     box-shadow: 0 0 8px var(--accent);
+    flex-shrink: 0;
   }
 
-  .panel-body { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+  .panel-body { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
 
-  /* Drop zone */
-  .dropzone {
+  /* Upload button - mobile safe */
+  .upload-area { display: flex; flex-direction: column; gap: 10px; }
+
+  #file-input { display: none; }
+
+  .upload-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px;
     border: 2px dashed var(--border);
     border-radius: 8px;
-    padding: 32px 16px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
     background: var(--surface);
-    position: relative;
-  }
-
-  .dropzone:hover, .dropzone.active {
-    border-color: var(--accent);
-    background: rgba(0,255,157,0.04);
-    box-shadow: 0 0 20px rgba(0,255,157,0.1) inset;
-  }
-
-  .dropzone input[type=file] {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
+    color: var(--accent);
     cursor: pointer;
-    width: 100%;
-    height: 100%;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .drop-icon {
-    font-size: 36px;
-    margin-bottom: 10px;
-    display: block;
+  .upload-btn:hover, .upload-btn:active {
+    border-color: var(--accent);
+    background: rgba(0,255,157,0.06);
+    box-shadow: 0 0 16px rgba(0,255,157,0.1) inset;
   }
 
-  .drop-text {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
+  .upload-icon { font-size: 22px; }
 
-  .drop-text strong { color: var(--accent); display: block; font-size: 15px; margin-bottom: 4px; }
-
-  /* Preview thumb */
   #thumb-wrap {
     display: none;
     border-radius: 6px;
@@ -177,25 +165,28 @@
   #thumb-wrap img {
     width: 100%;
     display: block;
-    max-height: 160px;
+    max-height: 140px;
     object-fit: cover;
   }
 
   .thumb-label {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    background: rgba(0,0,0,0.7);
-    font-size: 11px;
+    background: rgba(0,0,0,0.75);
+    font-size: 10px;
     padding: 4px 8px;
     color: var(--muted);
     font-family: 'Share Tech Mono', monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* Controls */
-  .control-group { display: flex; flex-direction: column; gap: 6px; }
+  .control-group { display: flex; flex-direction: column; gap: 8px; }
 
-  label {
-    font-size: 12px;
+  .ctrl-label {
+    font-size: 11px;
     color: var(--muted);
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -204,27 +195,42 @@
     align-items: center;
   }
 
-  label span {
+  .ctrl-val {
     color: var(--accent);
     font-family: 'Share Tech Mono', monospace;
     font-size: 12px;
+    min-width: 36px;
+    text-align: right;
   }
 
   input[type=range] {
     width: 100%;
-    height: 4px;
+    height: 6px;
     -webkit-appearance: none;
+    appearance: none;
     background: var(--border);
-    border-radius: 2px;
+    border-radius: 3px;
     outline: none;
+    cursor: pointer;
+    touch-action: pan-x;
   }
 
   input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 14px; height: 14px;
+    appearance: none;
+    width: 20px; height: 20px;
     border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
+    box-shadow: 0 0 8px rgba(0,255,157,0.6);
+    cursor: pointer;
+    border: 2px solid var(--bg);
+  }
+
+  input[type=range]::-moz-range-thumb {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
     cursor: pointer;
   }
 
@@ -233,18 +239,33 @@
     background: var(--surface2);
     border: 1px solid var(--border);
     color: var(--text);
-    padding: 8px 12px;
+    padding: 10px 12px;
     border-radius: 6px;
     font-family: 'Share Tech Mono', monospace;
     font-size: 12px;
     outline: none;
     cursor: pointer;
-    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   select:focus { border-color: var(--accent); }
 
-  /* Toggle group */
+  #custom-charset-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    outline: none;
+  }
+
+  #custom-charset-input:focus { border-color: var(--accent); }
+
+  /* Toggles */
   .toggle-row {
     display: flex;
     justify-content: space-between;
@@ -253,11 +274,12 @@
     color: var(--muted);
     letter-spacing: 1px;
     text-transform: uppercase;
+    padding: 2px 0;
   }
 
   .toggle {
     position: relative;
-    width: 40px; height: 22px;
+    width: 44px; height: 26px;
     flex-shrink: 0;
   }
 
@@ -268,16 +290,17 @@
     inset: 0;
     background: var(--surface2);
     border: 1px solid var(--border);
-    border-radius: 11px;
+    border-radius: 13px;
     cursor: pointer;
     transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .toggle-track::after {
     content: '';
     position: absolute;
     top: 3px; left: 3px;
-    width: 14px; height: 14px;
+    width: 18px; height: 18px;
     border-radius: 50%;
     background: var(--muted);
     transition: all 0.2s;
@@ -298,7 +321,7 @@
   .btn-group { display: flex; flex-direction: column; gap: 8px; }
 
   .btn {
-    padding: 10px 16px;
+    padding: 12px 16px;
     border-radius: 6px;
     border: none;
     cursor: pointer;
@@ -312,6 +335,8 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   .btn-primary {
@@ -320,10 +345,8 @@
     box-shadow: 0 0 16px rgba(0,255,157,0.3);
   }
 
-  .btn-primary:hover {
-    box-shadow: 0 0 28px rgba(0,255,157,0.5);
-    transform: translateY(-1px);
-  }
+  .btn-primary:active { opacity: 0.8; transform: scale(0.98); }
+  .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
 
   .btn-secondary {
     background: transparent;
@@ -331,11 +354,8 @@
     color: var(--text);
   }
 
-  .btn-secondary:hover {
-    border-color: var(--accent2);
-    color: var(--accent2);
-    box-shadow: 0 0 12px rgba(0,184,255,0.15);
-  }
+  .btn-secondary:active { border-color: var(--accent2); color: var(--accent2); }
+  .btn-secondary:disabled { opacity: 0.3; cursor: not-allowed; }
 
   .btn-danger {
     background: transparent;
@@ -343,40 +363,30 @@
     color: var(--muted);
   }
 
-  .btn-danger:hover {
-    border-color: var(--accent3);
-    color: var(--accent3);
-  }
-
-  .btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    transform: none !important;
-    box-shadow: none !important;
-  }
+  .btn-danger:active { border-color: var(--accent3); color: var(--accent3); }
 
   .btn-row { display: flex; gap: 8px; }
-  .btn-row .btn { flex: 1; }
+  .btn-row .btn { flex: 1; font-size: 12px; padding: 10px 8px; }
 
   /* Main area */
-  .main-area { display: flex; flex-direction: column; gap: 16px; }
+  .main-area { display: flex; flex-direction: column; gap: 12px; }
 
-  /* Tabs */
   .tabs {
     display: flex;
     gap: 4px;
     background: var(--panel);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 6px;
+    padding: 5px;
   }
 
   .tab {
-    padding: 8px 20px;
+    flex: 1;
+    padding: 8px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--muted);
@@ -384,6 +394,7 @@
     border: none;
     background: transparent;
     font-family: 'Rajdhani', sans-serif;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .tab.active {
@@ -392,24 +403,31 @@
     border: 1px solid var(--border);
   }
 
-  /* Output panel */
   .output-panel {
     background: var(--panel);
     border: 1px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
-    min-height: 500px;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
   }
 
   .output-toolbar {
-    padding: 10px 16px;
+    padding: 8px 14px;
     background: var(--surface2);
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .output-label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
   .output-info {
@@ -418,42 +436,35 @@
     color: var(--muted);
     margin-left: auto;
   }
-
-  .output-info span { color: var(--accent2); }
+  .output-info b { color: var(--accent2); font-weight: normal; }
 
   .output-scroll {
     flex: 1;
     overflow: auto;
-    padding: 16px;
+    padding: 12px;
+    -webkit-overflow-scrolling: touch;
   }
 
   #ascii-output {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 7px;
+    font-size: 6px;
     line-height: 1.15;
     white-space: pre;
     color: var(--text);
-    display: block;
+    display: none;
   }
-
-  #ascii-output.colored span { display: inline; }
 
   #compare-output {
     display: none;
-    gap: 16px;
-    height: 100%;
+    gap: 12px;
   }
 
   #compare-output.visible { display: grid; grid-template-columns: 1fr 1fr; }
 
-  .compare-side {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  .compare-side { display: flex; flex-direction: column; gap: 6px; }
 
   .compare-label {
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--muted);
@@ -465,48 +476,44 @@
     border-radius: 4px;
     border: 1px solid var(--border);
     object-fit: contain;
-    max-height: 460px;
+    max-height: 400px;
   }
 
-  .compare-side .ascii-wrap {
-    flex: 1;
+  .ascii-wrap {
     overflow: auto;
     border: 1px solid var(--border);
     border-radius: 4px;
-    padding: 8px;
+    padding: 6px;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Empty state */
   .empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    min-height: 400px;
+    min-height: 360px;
     color: var(--muted);
     gap: 12px;
     text-align: center;
   }
 
-  .empty-state .big-icon { font-size: 64px; opacity: 0.3; }
-  .empty-state p { font-size: 14px; letter-spacing: 1px; }
+  .empty-icon { font-size: 56px; opacity: 0.25; }
+  .empty-state p { font-size: 13px; letter-spacing: 1px; }
 
-  /* Processing overlay */
   .processing {
     display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    min-height: 400px;
+    min-height: 360px;
     gap: 16px;
   }
 
   .processing.visible { display: flex; }
 
   .spinner {
-    width: 48px; height: 48px;
+    width: 44px; height: 44px;
     border: 2px solid var(--border);
     border-top-color: var(--accent);
     border-radius: 50%;
@@ -517,16 +524,15 @@
 
   .processing p {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 13px;
+    font-size: 12px;
     color: var(--accent);
   }
 
-  /* Status bar */
   .status-bar {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 8px 16px;
+    gap: 10px;
+    padding: 8px 14px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -539,52 +545,45 @@
     width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--muted);
+    flex-shrink: 0;
   }
 
   .status-dot.ready { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
   .status-dot.error { background: var(--accent3); box-shadow: 0 0 6px var(--accent3); }
 
-  #status-text { color: var(--text); }
+  #status-text { color: var(--text); font-size: 11px; }
 
   canvas { display: none; }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: var(--surface); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
-
-  @media (max-width: 900px) {
-    .layout { grid-template-columns: 1fr; }
-  }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 </style>
 </head>
 <body>
 <div class="app">
   <header>
     <div class="logo">ASCII<span>.</span>ART</div>
-    <div class="tagline">Image → ASCII Converter</div>
+    <div class="tagline">Image → ASCII</div>
   </header>
 
   <div class="layout">
-    <!-- Sidebar -->
     <div class="sidebar">
 
       <!-- Upload -->
       <div class="panel">
         <div class="panel-header">Изображение</div>
         <div class="panel-body">
-          <div class="dropzone" id="dropzone">
+          <div class="upload-area">
             <input type="file" id="file-input" accept="image/*">
-            <span class="drop-icon">🖼</span>
-            <div class="drop-text">
-              <strong>Перетащи или нажми</strong>
-              JPG · PNG · GIF · WebP · BMP
+            <div class="upload-btn" id="upload-btn">
+              <span class="upload-icon">🖼</span>
+              Выбрать фото
             </div>
-          </div>
-          <div id="thumb-wrap">
-            <img id="thumb-img" src="" alt="">
-            <div class="thumb-label" id="thumb-label"></div>
+            <div id="thumb-wrap">
+              <img id="thumb-img" src="" alt="">
+              <div class="thumb-label" id="thumb-label"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -595,43 +594,52 @@
         <div class="panel-body">
 
           <div class="control-group">
-            <label>Ширина <span id="width-val">100</span> символов</label>
-            <input type="range" id="ascii-width" min="20" max="300" value="100" step="5">
+            <div class="ctrl-label">
+              Ширина
+              <span class="ctrl-val" id="width-val">100</span>
+            </div>
+            <input type="range" id="ascii-width" min="20" max="200" value="100" step="5">
           </div>
 
           <div class="control-group">
-            <label>Яркость <span id="brightness-val">0</span></label>
+            <div class="ctrl-label">
+              Яркость
+              <span class="ctrl-val" id="brightness-val">0</span>
+            </div>
             <input type="range" id="brightness" min="-100" max="100" value="0">
           </div>
 
           <div class="control-group">
-            <label>Контраст <span id="contrast-val">0</span></label>
+            <div class="ctrl-label">
+              Контраст
+              <span class="ctrl-val" id="contrast-val">0</span>
+            </div>
             <input type="range" id="contrast" min="-100" max="100" value="0">
           </div>
 
           <div class="control-group">
-            <label>Набор символов</label>
+            <div class="ctrl-label">Набор символов</div>
             <select id="charset">
-              <option value="detailed">Детализированный (@#S%?*+;:,.)</option>
-              <option value="classic">Классический (@#=-:. )</option>
-              <option value="blocks">Блочный (█▓▒░ )</option>
-              <option value="binary">Бинарный (# )</option>
-              <option value="braille">Брайль (⣿⣷⣦⣄)</option>
+              <option value="detailed">Детализированный</option>
+              <option value="classic">Классический</option>
+              <option value="blocks">Блочный (█▓▒░)</option>
+              <option value="binary">Бинарный</option>
+              <option value="braille">Брайль</option>
               <option value="custom">Свой набор ↓</option>
             </select>
           </div>
 
-          <div class="control-group" id="custom-charset-wrap" style="display:none">
-            <label>Свои символы (от тёмного к светлому)</label>
-            <input type="text" id="custom-charset" value="@#%+=:-. "
-              style="width:100%;background:var(--surface2);border:1px solid var(--border);
-                     color:var(--text);padding:8px 12px;border-radius:6px;
-                     font-family:'Share Tech Mono',monospace;font-size:13px;outline:none;">
+          <div class="control-group" id="custom-wrap" style="display:none">
+            <div class="ctrl-label">Свои символы</div>
+            <input type="text" id="custom-charset-input" value="@#%+=:-. ">
           </div>
 
           <div class="control-group">
-            <label>Соотношение высоты <span id="ratio-val">0.55</span></label>
-            <input type="range" id="char-ratio" min="0.3" max="1.0" value="0.55" step="0.05">
+            <div class="ctrl-label">
+              Высота символа
+              <span class="ctrl-val" id="ratio-val">0.55</span>
+            </div>
+            <input type="range" id="char-ratio" min="30" max="100" value="55" step="5">
           </div>
 
           <div class="toggle-row">
@@ -643,7 +651,7 @@
           </div>
 
           <div class="toggle-row">
-            <span>Цветной ASCII</span>
+            <span>Цвет</span>
             <label class="toggle">
               <input type="checkbox" id="colored">
               <div class="toggle-track"></div>
@@ -651,7 +659,7 @@
           </div>
 
           <div class="toggle-row">
-            <span>Авто-обновление</span>
+            <span>Авто</span>
             <label class="toggle">
               <input type="checkbox" id="auto-update" checked>
               <div class="toggle-track"></div>
@@ -661,7 +669,7 @@
         </div>
       </div>
 
-      <!-- Convert -->
+      <!-- Actions -->
       <div class="panel">
         <div class="panel-header">Действия</div>
         <div class="panel-body">
@@ -669,11 +677,11 @@
             <button class="btn btn-primary" id="btn-convert" disabled>▶ Конвертировать</button>
             <div class="btn-row">
               <button class="btn btn-secondary" id="btn-copy" disabled>📋 Копировать</button>
-              <button class="btn btn-secondary" id="btn-txt" disabled>💾 .TXT</button>
+              <button class="btn btn-secondary" id="btn-txt" disabled>💾 TXT</button>
             </div>
             <div class="btn-row">
-              <button class="btn btn-secondary" id="btn-png" disabled>🖼 .PNG</button>
-              <button class="btn btn-secondary" id="btn-html" disabled>🌐 .HTML</button>
+              <button class="btn btn-secondary" id="btn-png" disabled>🖼 PNG</button>
+              <button class="btn btn-secondary" id="btn-html" disabled>🌐 HTML</button>
             </div>
             <button class="btn btn-danger" id="btn-reset">✕ Сбросить</button>
           </div>
@@ -691,29 +699,19 @@
 
       <div class="output-panel">
         <div class="output-toolbar">
-          <span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">Вывод</span>
-          <div class="output-info" id="output-info">
-            <span>—</span>
-          </div>
+          <span class="output-label">Вывод</span>
+          <div class="output-info" id="output-info"><b>—</b></div>
         </div>
-
-        <div class="output-scroll" id="output-scroll">
-          <!-- Empty state -->
+        <div class="output-scroll">
           <div class="empty-state" id="empty-state">
-            <div class="big-icon">⠿</div>
+            <div class="empty-icon">⠿</div>
             <p>Загрузи изображение чтобы начать</p>
           </div>
-
-          <!-- Processing -->
           <div class="processing" id="processing">
             <div class="spinner"></div>
             <p>Конвертация...</p>
           </div>
-
-          <!-- ASCII result -->
           <pre id="ascii-output"></pre>
-
-          <!-- Compare view -->
           <div id="compare-output">
             <div class="compare-side">
               <div class="compare-label">Оригинал</div>
@@ -722,7 +720,7 @@
             <div class="compare-side">
               <div class="compare-label">ASCII</div>
               <div class="ascii-wrap">
-                <pre id="ascii-compare"></pre>
+                <pre id="ascii-compare" style="font-family:'Share Tech Mono',monospace;font-size:5px;line-height:1.15;white-space:pre;color:var(--text)"></pre>
               </div>
             </div>
           </div>
@@ -750,41 +748,40 @@ const CHARSETS = {
 
 let currentImage = null;
 let currentResult = '';
-let isColored = false;
 let currentTab = 'result';
 
-// Elements
-const dropzone = document.getElementById('dropzone');
-const fileInput = document.getElementById('file-input');
-const thumbWrap = document.getElementById('thumb-wrap');
-const thumbImg = document.getElementById('thumb-img');
-const thumbLabel = document.getElementById('thumb-label');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const asciiOutput = document.getElementById('ascii-output');
-const asciiCompare = document.getElementById('ascii-compare');
-const compareImg = document.getElementById('compare-img');
-const emptyState = document.getElementById('empty-state');
-const processing = document.getElementById('processing');
-const compareOutput = document.getElementById('compare-output');
-const outputInfo = document.getElementById('output-info');
-const statusDot = document.getElementById('status-dot');
-const statusText = document.getElementById('status-text');
+const $ = id => document.getElementById(id);
 
-const sliders = ['ascii-width', 'brightness', 'contrast', 'char-ratio'];
-const displays = { 'ascii-width': 'width-val', 'brightness': 'brightness-val', 'contrast': 'contrast-val', 'char-ratio': 'ratio-val' };
+// File upload — mobile safe
+$('upload-btn').addEventListener('click', () => $('file-input').click());
 
-// Slider labels
-sliders.forEach(id => {
-  const el = document.getElementById(id);
-  el.addEventListener('input', () => {
-    document.getElementById(displays[id]).textContent = el.value;
-    if (document.getElementById('auto-update').checked && currentImage) convert();
-  });
+$('file-input').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (file) loadFile(file);
 });
 
-// Toggles that trigger auto-convert
-['invert','colored','charset'].forEach(id => {
-  document.getElementById(id).addEventListener('change', () => {
-    if (id === 'charset') {
-      document.getElementById('custom-charset-wrap').style.displ
+function loadFile(file) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      currentImage = img;
+      $('thumb-img').src = ev.target.result;
+      $('compare-img').src = ev.target.result;
+      $('thumb-wrap').style.display = 'block';
+      $('thumb-label').textContent = file.name + ' · ' + img.width + '×' + img.height;
+      $('btn-convert').disabled = false;
+      setStatus('Изображение загружено', 'ready');
+      if ($('auto-update').checked) convert();
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// Sliders
+const sliderMap = [
+  { id: 'ascii-width',  valId: 'width-val',      fmt: v => v },
+  { id: 'brightness',   valId: 'brightness-val', fmt: v => v },
+  { id: 'contrast',     valId: 'contrast-val',   fmt: v => v },
+  { id: 'char-ratio',   valId: 'ratio-val',      f
